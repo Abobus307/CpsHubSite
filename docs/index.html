@@ -588,26 +588,6 @@
             font-size: 1.8rem;
         }
 
-        .update-status {
-            font-size: 1.5rem;
-            font-weight: bold;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 20px 0;
-        }
-
-        .status-updated {
-            background: rgba(87, 242, 135, 0.2);
-            color: #57F287;
-            border: 2px solid #57F287;
-        }
-
-        .status-outdated {
-            background: rgba(255, 107, 107, 0.2);
-            color: #ff6b6b;
-            border: 2px solid #ff6b6b;
-        }
-
         .executer-details {
             text-align: left;
             margin: 20px 0;
@@ -652,34 +632,40 @@
             align-items: center;
         }
 
-        .counters {
-            margin: 20px 0;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.05);
+        .status-check-notice {
+            background: rgba(255, 193, 7, 0.2);
+            border: 2px solid #ffc107;
             border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .status-check-notice h3 {
+            color: #ffc107;
+            margin-bottom: 10px;
             display: flex;
+            align-items: center;
             justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
+            gap: 10px;
         }
 
-        .counter-item {
-            font-size: 1.1rem;
+        .status-check-link {
+            display: inline-block;
+            background: #ffc107;
+            color: #000;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
             font-weight: bold;
-            padding: 10px 20px;
-            border-radius: 8px;
+            margin-top: 15px;
+            transition: all 0.3s ease;
         }
 
-        .updated-counter {
-            color: #57F287;
-            background: rgba(87, 242, 135, 0.1);
-            border: 1px solid #57F287;
-        }
-
-        .not-updated-counter {
-            color: #ff6b6b;
-            background: rgba(255, 107, 107, 0.1);
-            border: 1px solid #ff6b6b;
+        .status-check-link:hover {
+            background: #ffb300;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.4);
         }
     </style>
 </head>
@@ -889,7 +875,15 @@
         <div class="tab-content" id="executers-tab">
             <div class="executers-container">
                 <h2 class="service-title">⚙️ Supported Executers</h2>
-                <p style="margin-bottom: 30px; opacity: 0.8;">Click on any executor to check its update status</p>
+                <p style="margin-bottom: 30px; opacity: 0.8;">Click on any executor to get more information</p>
+                
+                <div class="status-check-notice">
+                    <h3>🔍 Check Executor Statuses</h3>
+                    <p>We do not track executor update statuses. To check current statuses, visit:</p>
+                    <a href="https://weao.xyz/" class="status-check-link" target="_blank">
+                        📊 Check statuses on weao.xyz
+                    </a>
+                </div>
                 
                 <div class="platform-tabs">
                     <button class="platform-tab active" data-platform="pc">💻 PC</button>
@@ -900,72 +894,68 @@
                 
                 <div class="platform-content active" id="pc-content">
                     <h3 style="margin-bottom: 20px; color: #57F287;">PC Executers</h3>
-                    <div class="counters">
-                        <div class="counter-item updated-counter">Updated: <span id="pc-updated">0</span></div>
-                        <div class="counter-item not-updated-counter">Not Updated: <span id="pc-not-updated">0</span></div>
-                    </div>
                     <div class="executers-grid">
-                        <div class="executer-card" data-updated="false" onclick="showExecuterInfo('Volcano', false, 'Free (Key System)', 'https://volcano.wtf')">
+                        <div class="executer-card" onclick="showExecuterInfo('Volcano', 'Free (Key System)', 'https://volcano.wtf')">
                             <div class="executer-icon">🌋</div>
                             <div class="executer-name">Volcano</div>
                             <div class="executer-price">Free (Key System)</div>
                             <div class="executer-website">volcano.wtf</div>
                         </div>
-                        <div class="executer-card" data-updated="false" onclick="showExecuterInfo('Velocity', false, 'Free', 'https://getvelocity.lol')">
+                        <div class="executer-card" onclick="showExecuterInfo('Velocity', 'Free', 'https://getvelocity.lol')">
                             <div class="executer-icon">⚡</div>
                             <div class="executer-name">Velocity</div>
                             <div class="executer-price">Free</div>
                             <div class="executer-website">getvelocity.lol</div>
                         </div>
-                        <div class="executer-card" data-updated="false" onclick="showExecuterInfo('Zenith', false, 'Paid - $6.49 Weekly', 'https://zenith.win')">
+                        <div class="executer-card" onclick="showExecuterInfo('Zenith', 'Paid - $6.49 Weekly', 'https://zenith.win')">
                             <div class="executer-icon">🌟</div>
                             <div class="executer-name">Zenith</div>
                             <div class="executer-price">Paid - $6.49 Weekly</div>
                             <div class="executer-website">zenith.win</div>
                         </div>
-                        <div class="executer-card" data-updated="false" onclick="showExecuterInfo('Wave', false, 'Paid - $7.49 Weekly', 'https://getwave.gg')">
+                        <div class="executer-card" onclick="showExecuterInfo('Wave', 'Paid - $7.49 Weekly', 'https://getwave.gg')">
                             <div class="executer-icon">🌊</div>
                             <div class="executer-name">Wave</div>
                             <div class="executer-price">Paid - $7.49 Weekly</div>
                             <div class="executer-website">getwave.gg</div>
                         </div>
-                        <div class="executer-card" data-updated="false" onclick="showExecuterInfo('Volt', false, 'Paid - $8 Weekly', 'https://volt.bz')">
+                        <div class="executer-card" onclick="showExecuterInfo('Volt', 'Paid - $8 Weekly', 'https://volt.bz')">
                             <div class="executer-icon">🔌</div>
                             <div class="executer-name">Volt</div>
                             <div class="executer-price">Paid - $8 Weekly</div>
                             <div class="executer-website">volt.bz</div>
                         </div>
-                        <div class="executer-card" data-updated="false" onclick="showExecuterInfo('Seliware', false, 'Paid - $9.99 Monthly', 'https://seliware.com')">
+                        <div class="executer-card" onclick="showExecuterInfo('Seliware', 'Paid - $9.99 Monthly', 'https://seliware.com')">
                             <div class="executer-icon">🛡️</div>
                             <div class="executer-name">Seliware</div>
                             <div class="executer-price">Paid - $9.99 Monthly</div>
                             <div class="executer-website">seliware.com</div>
                         </div>
-                        <div class="executer-card" data-updated="false" onclick="showExecuterInfo('Swift', false, 'Free (Key System)', 'https://getswift.vip')">
+                        <div class="executer-card" onclick="showExecuterInfo('Swift', 'Free (Key System)', 'https://getswift.vip')">
                             <div class="executer-icon">💨</div>
                             <div class="executer-name">Swift</div>
                             <div class="executer-price">Free (Key System)</div>
                             <div class="executer-website">getswift.vip</div>
                         </div>
-                        <div class="executer-card" data-updated="false" onclick="showExecuterInfo('Valex', false, 'Free (Key System)', 'https://valex.io')">
+                        <div class="executer-card" onclick="showExecuterInfo('Valex', 'Free (Key System)', 'https://valex.io')">
                             <div class="executer-icon">🔮</div>
                             <div class="executer-name">Valex</div>
                             <div class="executer-price">Free (Key System)</div>
                             <div class="executer-website">valex.io</div>
                         </div>
-                        <div class="executer-card" data-updated="false" onclick="showExecuterInfo('Potassium', false, 'Paid - $20 Lifetime', 'https://potassium.pro')">
+                        <div class="executer-card" onclick="showExecuterInfo('Potassium', 'Paid - $20 Lifetime', 'https://potassium.pro')">
                             <div class="executer-icon">🥔</div>
                             <div class="executer-name">Potassium</div>
                             <div class="executer-price">Paid - $20 Lifetime</div>
                             <div class="executer-website">potassium.pro</div>
                         </div>
-                        <div class="executer-card" data-updated="false" onclick="showExecuterInfo('Bunni.lol', false, 'Free (Key System)', 'https://realbunni.com')">
+                        <div class="executer-card" onclick="showExecuterInfo('Bunni.lol', 'Free (Key System)', 'https://realbunni.com')">
                             <div class="executer-icon">🐰</div>
                             <div class="executer-name">Bunni.lol</div>
                             <div class="executer-price">Free (Key System)</div>
                             <div class="executer-website">realbunni.com</div>
                         </div>
-                        <div class="executer-card" data-updated="false" onclick="showExecuterInfo('Sirhurt', false, 'Paid - $2.80 Weekly', 'https://sirhurt.net')">
+                        <div class="executer-card" onclick="showExecuterInfo('Sirhurt', 'Paid - $2.80 Weekly', 'https://sirhurt.net')">
                             <div class="executer-icon">👑</div>
                             <div class="executer-name">Sirhurt</div>
                             <div class="executer-price">Paid - $2.80 Weekly</div>
@@ -976,18 +966,14 @@
                 
                 <div class="platform-content" id="mac-content">
                     <h3 style="margin-bottom: 20px; color: #57F287;">Mac Executers</h3>
-                    <div class="counters">
-                        <div class="counter-item updated-counter">Updated: <span id="mac-updated">0</span></div>
-                        <div class="counter-item not-updated-counter">Not Updated: <span id="mac-not-updated">0</span></div>
-                    </div>
                     <div class="executers-grid">
-                        <div class="executer-card" data-updated="false" onclick="showExecuterInfo('Hydrogen', false, 'Free (Key System)', 'https://hydrogen.lat')">
+                        <div class="executer-card" onclick="showExecuterInfo('Hydrogen', 'Free (Key System)', 'https://hydrogen.lat')">
                             <div class="executer-icon">💧</div>
                             <div class="executer-name">Hydrogen</div>
                             <div class="executer-price">Free (Key System)</div>
                             <div class="executer-website">hydrogen.lat</div>
                         </div>
-                        <div class="executer-card" data-updated="false" onclick="showExecuterInfo('Macsploit', false, 'Paid - $8 Lifetime', 'https://abyssdigital.xyz')">
+                        <div class="executer-card" onclick="showExecuterInfo('Macsploit', 'Paid - $8 Lifetime', 'https://abyssdigital.xyz')">
                             <div class="executer-icon">🍎</div>
                             <div class="executer-name">Macsploit</div>
                             <div class="executer-price">Paid - $8 Lifetime</div>
@@ -998,24 +984,20 @@
                 
                 <div class="platform-content" id="android-content">
                     <h3 style="margin-bottom: 20px; color: #57F287;">Android Executers</h3>
-                    <div class="counters">
-                        <div class="counter-item updated-counter">Updated: <span id="android-updated">0</span></div>
-                        <div class="counter-item not-updated-counter">Not Updated: <span id="android-not-updated">0</span></div>
-                    </div>
                     <div class="executers-grid">
-                        <div class="executer-card" data-updated="true" onclick="showExecuterInfo('Codex', true, 'Free (Key System)', 'https://codex.lol')">
+                        <div class="executer-card" onclick="showExecuterInfo('Codex', 'Free (Key System)', 'https://codex.lol')">
                             <div class="executer-icon">📜</div>
                             <div class="executer-name">Codex</div>
                             <div class="executer-price">Free (Key System)</div>
                             <div class="executer-website">codex.lol</div>
                         </div>
-                        <div class="executer-card" data-updated="false" onclick="showExecuterInfo('Cryptic', false, 'Free (Key System)', 'https://getcryptic.net')">
+                        <div class="executer-card" onclick="showExecuterInfo('Cryptic', 'Free (Key System)', 'https://getcryptic.net')">
                             <div class="executer-icon">🔐</div>
                             <div class="executer-name">Cryptic</div>
                             <div class="executer-price">Free (Key System)</div>
                             <div class="executer-website">getcryptic.net</div>
                         </div>
-                        <div class="executer-card" data-updated="true" onclick="showExecuterInfo('Delta', true, 'Free (Key System)', 'https://deltaexploits.gg')">
+                        <div class="executer-card" onclick="showExecuterInfo('Delta', 'Free (Key System)', 'https://deltaexploits.gg')">
                             <div class="executer-icon">Δ</div>
                             <div class="executer-name">Delta</div>
                             <div class="executer-price">Free (Key System)</div>
@@ -1026,12 +1008,8 @@
                 
                 <div class="platform-content" id="ios-content">
                     <h3 style="margin-bottom: 20px; color: #57F287;">iOS Executers</h3>
-                    <div class="counters">
-                        <div class="counter-item updated-counter">Updated: <span id="ios-updated">0</span></div>
-                        <div class="counter-item not-updated-counter">Not Updated: <span id="ios-not-updated">0</span></div>
-                    </div>
                     <div class="executers-grid">
-                        <div class="executer-card" data-updated="true" onclick="showExecuterInfo('Delta', true, 'Free (Key System)', 'https://deltaexploits.gg')">
+                        <div class="executer-card" onclick="showExecuterInfo('Delta', 'Free (Key System)', 'https://deltaexploits.gg')">
                             <div class="executer-icon">Δ</div>
                             <div class="executer-name">Delta</div>
                             <div class="executer-price">Free (Key System)</div>
@@ -1074,26 +1052,17 @@
                 
                 const platformId = button.getAttribute('data-platform') + '-content';
                 document.getElementById(platformId).classList.add('active');
-                
-                updateCounters(platformId);
             });
         });
 
-        function showExecuterInfo(executerName, isUpdated, price, website) {
+        function showExecuterInfo(executerName, price, website) {
             const modal = document.getElementById('executerModal');
             const modalTitle = document.getElementById('executerModalTitle');
             const modalContent = document.getElementById('executerModalContent');
             
             modalTitle.textContent = `${executerName} Info`;
             
-            const statusClass = isUpdated ? 'status-updated' : 'status-outdated';
-            const statusText = isUpdated ? '🟢 UPDATED' : '🔴 NOT UPDATED';
-            
             modalContent.innerHTML = `
-                <div class="update-status ${statusClass}">
-                    ${statusText}
-                </div>
-                
                 <div class="executer-details">
                     <div class="detail-row">
                         <span class="detail-label">Price:</span>
@@ -1101,7 +1070,7 @@
                     </div>
                     <div class="detail-row">
                         <span class="detail-label">Status:</span>
-                        <span class="detail-value">${isUpdated ? 'Working with current Roblox' : 'May not work with current Roblox'}</span>
+                        <span class="detail-value">Check website for current status</span>
                     </div>
                     <div class="detail-row">
                         <span class="detail-label">Website:</span>
@@ -1109,12 +1078,18 @@
                     </div>
                 </div>
                 
-                <a href="${website}" class="website-link" target="_blank">Visit Website</a>
+                <a href="${website}" class="website-link" target="_blank">Official Website</a>
+                
+                <div class="status-check-notice" style="margin-top: 20px;">
+                    <h3>🔍 Check Update Status</h3>
+                    <p>To check if this executor is currently updated, visit:</p>
+                    <a href="https://weao.xyz/" class="status-check-link" target="_blank">
+                        📊 weao.xyz
+                    </a>
+                </div>
                 
                 <p style="margin-top: 20px; opacity: 0.8; font-size: 0.9rem;">
-                    ${isUpdated ? 
-                        'This executor is currently updated and should work with the latest Roblox version.' : 
-                        'This executor is not updated and may not work with the current Roblox version.'}
+                    We do not track executor update statuses. Always check the official website for current status.
                 </p>
             `;
             
@@ -1131,33 +1106,6 @@
                 closeExecuterModal();
             }
         }
-
-        function updateCounters(platformId) {
-            const platformContent = document.getElementById(platformId);
-            const executerCards = platformContent.querySelectorAll('.executer-card');
-            
-            let updatedCount = 0;
-            let notUpdatedCount = 0;
-            
-            executerCards.forEach(card => {
-                if (card.getAttribute('data-updated') === 'true') {
-                    updatedCount++;
-                } else {
-                    notUpdatedCount++;
-                }
-            });
-            
-            const platform = platformId.split('-')[0];
-            document.getElementById(`${platform}-updated`).textContent = updatedCount;
-            document.getElementById(`${platform}-not-updated`).textContent = notUpdatedCount;
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            updateCounters('pc-content');
-            updateCounters('mac-content');
-            updateCounters('android-content');
-            updateCounters('ios-content');
-        });
     </script>
 </body>
 </html>
