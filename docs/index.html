@@ -579,7 +579,6 @@
             color: #b0b0b0;
         }
 
-        /* Modal styles with smooth animation */
         .modal {
             display: none;
             position: fixed;
@@ -725,7 +724,6 @@
             box-shadow: 0 4px 15px rgba(179, 142, 93, 0.2);
         }
 
-        /* Status indicators */
         .status-container {
             display: flex;
             justify-content: center;
@@ -742,7 +740,6 @@
             font-weight: bold;
         }
 
-        /* Update status colors - FIXED */
         .status-updated {
             background: rgba(40, 167, 69, 0.3);
             color: #6bff8d;
@@ -761,14 +758,13 @@
             border: 1px solid rgba(108, 117, 125, 0.5);
         }
 
-        /* Detect status colors - FIXED */
-        .status-detect {
+        .status-detected {
             background: rgba(255, 193, 7, 0.3);
             color: #ffd966;
             border: 1px solid rgba(255, 193, 7, 0.5);
         }
 
-        .status-undetect {
+        .status-undetected {
             background: rgba(111, 66, 193, 0.3);
             color: #b28cff;
             border: 1px solid rgba(111, 66, 193, 0.5);
@@ -1178,23 +1174,23 @@
         };
 
         let DetectStatus = {
-            "Volcano": "Undetect",
-            "Velocity": "Undetect",
-            "Zenith": "Undetect",
-            "Wave": "Undetect",
-            "Volt": "Undetect",
-            "Seliware": "Undetect",
-            "Swift": "Detect",
-            "Valex": "Undetect",
-            "Potassium": "Undetect",
+            "Volcano": "Undetected",
+            "Velocity": "Undetected",
+            "Zenith": "Undetected",
+            "Wave": "Undetected",
+            "Volt": "Undetected",
+            "Seliware": "Undetected",
+            "Swift": "Detected",
+            "Valex": "Undetected",
+            "Potassium": "Undetected",
             "Bunni.lol": "Unknown",
-            "Sirhurt": "Undetect",
-            "Hydrogen": "Undetect",
-            "Macsploit": "Undetect",
-            "Codex": "Undetect",
-            "Cryptic": "Undetect",
-            "Delta": "Undetect",
-            "Delta-iOS": "Undetect"
+            "Sirhurt": "Undetected",
+            "Hydrogen": "Undetected",
+            "Macsploit": "Undetected",
+            "Codex": "Undetected",
+            "Cryptic": "Undetected",
+            "Delta": "Undetected",
+            "Delta-iOS": "Undetected"
         };
 
         function createStatusIndicator(type, status) {
@@ -1207,17 +1203,20 @@
                 } else if (status === 'Not Updated') {
                     indicator.className = 'status-indicator status-not-updated';
                     indicator.textContent = 'Not Updated';
+                } else if (status === 'Unknown') {
+                    indicator.className = 'status-indicator status-unknown-update';
+                    indicator.textContent = 'Unknown';
                 } else {
                     indicator.className = 'status-indicator status-unknown-update';
                     indicator.textContent = 'Unknown';
                 }
             } else {
-                if (status === 'Detect') {
-                    indicator.className = 'status-indicator status-detect';
-                    indicator.textContent = 'Detect';
+                if (status === 'Detected') {
+                    indicator.className = 'status-indicator status-detected';
+                    indicator.textContent = 'Detected';
                 } else {
-                    indicator.className = 'status-indicator status-undetect';
-                    indicator.textContent = 'Undetect';
+                    indicator.className = 'status-indicator status-undetected';
+                    indicator.textContent = 'Undetected';
                 }
             }
             
@@ -1276,7 +1275,7 @@
             modalTitle.textContent = `${executerName} Info`;
             
             const updateStatus = UpdateStatus[executerName] || 'Unknown';
-            const detectStatus = DetectStatus[executerName] || 'Detect';
+            const detectStatus = DetectStatus[executerName] || 'Detected';
             
             modalContent.innerHTML = `
                 <div class="executer-details">
