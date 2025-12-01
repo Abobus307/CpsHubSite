@@ -18,6 +18,95 @@
             color: #e0e0e0;
             min-height: 100vh;
             padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        #animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        .glow-effect {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100vmax;
+            height: 100vmax;
+            background: radial-gradient(circle, rgba(179, 142, 93, 0.1) 0%, transparent 70%);
+            z-index: -1;
+            animation: pulse-glow 8s infinite alternate;
+            pointer-events: none;
+        }
+
+        @keyframes pulse-glow {
+            0% {
+                opacity: 0.3;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+            100% {
+                opacity: 0.6;
+                transform: translate(-50%, -50%) scale(1.2);
+            }
+        }
+
+        .floating-particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: rgba(179, 142, 93, 0.3);
+            border-radius: 50%;
+            z-index: -1;
+            pointer-events: none;
+            animation: float-particle linear infinite;
+        }
+
+        @keyframes float-particle {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(calc(100vw * var(--dx)));
+                opacity: 0;
+            }
+        }
+
+        .grid-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(168, 107, 107, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(168, 107, 107, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            opacity: 0.3;
+            animation: grid-move 20s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes grid-move {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(25px, 25px);
+            }
         }
 
         .container {
@@ -37,6 +126,7 @@
             border: 1px solid rgba(120, 60, 60, 0.3);
             margin-top: 100px;
             text-align: center;
+            animation: slideIn 0.5s ease;
         }
 
         .technical-issues.active {
@@ -47,12 +137,25 @@
             font-size: 4rem;
             margin-bottom: 30px;
             color: #a86b6b;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 6px 20px rgba(179, 142, 93, 0.3);
+            }
         }
 
         .issues-title {
             font-size: 2.5rem;
             margin-bottom: 20px;
             color: #b38e5d;
+            text-shadow: 0 0 20px rgba(179, 142, 93, 0.5);
         }
 
         .issues-text {
@@ -83,6 +186,13 @@
             border: 2px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: rotate(360deg) scale(1.1);
+            box-shadow: 0 0 30px rgba(179, 142, 93, 0.5);
+            border-color: rgba(179, 142, 93, 0.5);
         }
 
         .header {
@@ -99,6 +209,18 @@
             background-clip: text;
             color: transparent;
             text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            animation: slideIn 0.8s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .subtitle {
@@ -106,6 +228,7 @@
             opacity: 0.8;
             margin-bottom: 30px;
             color: #b0b0b0;
+            animation: slideIn 1s ease;
         }
 
         .tabs {
@@ -127,6 +250,26 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             border: 1px solid rgba(80, 30, 30, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tab-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .tab-button:hover::after {
+            width: 300px;
+            height: 300px;
         }
 
         .tab-button.active {
@@ -257,6 +400,7 @@
             font-weight: bold;
             text-align: center;
             border-left: 3px solid rgba(179, 142, 93, 0.5);
+            animation: pulse 2s infinite;
         }
 
         .support-button {
@@ -275,6 +419,7 @@
             gap: 8px;
             transition: all 0.3s ease;
             border: 1px solid rgba(100, 40, 40, 0.3);
+            animation: pulse 2s infinite;
         }
 
         .support-button:hover {
@@ -299,6 +444,7 @@
             gap: 8px;
             transition: all 0.3s ease;
             border: 1px solid rgba(80, 40, 80, 0.3);
+            animation: pulse 2s infinite;
         }
 
         .main-server-button:hover {
@@ -339,6 +485,13 @@
         .perk-icon {
             font-size: 3rem;
             margin-bottom: 15px;
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+
+        .perk-card:hover .perk-icon {
+            transform: scale(1.2) rotate(5deg);
+            filter: drop-shadow(0 0 10px rgba(179, 142, 93, 0.5));
         }
 
         .perk-name {
@@ -376,6 +529,7 @@
         .discord-icon {
             font-size: 4rem;
             margin-bottom: 20px;
+            animation: pulse 3s infinite;
         }
 
         .discord-title {
@@ -406,6 +560,27 @@
             display: inline-block;
             margin: 10px 5px;
             border: 1px solid rgba(100, 40, 40, 0.3);
+            position: relative;
+            overflow: hidden;
+            animation: pulse 2s infinite;
+        }
+
+        .discord-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .discord-button:hover::after {
+            width: 300px;
+            height: 300px;
         }
 
         .discord-button:hover {
@@ -429,6 +604,27 @@
             margin: 10px 5px;
             font-weight: bold;
             border: 1px solid rgba(80, 40, 80, 0.3);
+            position: relative;
+            overflow: hidden;
+            animation: pulse 2s infinite;
+        }
+
+        .support-server-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .support-server-button:hover::after {
+            width: 300px;
+            height: 300px;
         }
 
         .support-server-button:hover {
@@ -463,6 +659,13 @@
         .feature-icon {
             font-size: 2rem;
             margin-bottom: 15px;
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.2) rotate(5deg);
+            filter: drop-shadow(0 0 10px rgba(179, 142, 93, 0.5));
         }
 
         .scripts-container {
@@ -503,6 +706,13 @@
 
         .script-icon {
             font-size: 2.5rem;
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+
+        .script-button:hover .script-icon {
+            transform: scale(1.2) rotate(5deg);
+            filter: drop-shadow(0 0 10px rgba(179, 142, 93, 0.5));
         }
 
         .script-name {
@@ -604,6 +814,13 @@
         .executer-icon {
             font-size: 2.5rem;
             margin-bottom: 10px;
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+
+        .executer-card:hover .executer-icon {
+            transform: scale(1.2) rotate(5deg);
+            filter: drop-shadow(0 0 10px rgba(179, 142, 93, 0.5));
         }
 
         .executer-name {
@@ -1037,6 +1254,10 @@
     </style>
 </head>
 <body>
+    <canvas id="animated-bg"></canvas>
+    <div class="glow-effect"></div>
+    <div class="grid-effect"></div>
+
     <div class="technical-issues">
         <div class="issues-icon">🔧</div>
         <h1 class="issues-title">Technical Issues</h1>
@@ -1545,7 +1766,164 @@
     </div>
 
     <script>
-        // ==================== STATUS CONFIGURATION ====================
+        const canvas = document.getElementById('animated-bg');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let mouse = { x: null, y: null, radius: 150 };
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initParticles();
+        }
+
+        function initParticles() {
+            particles = [];
+            const particleCount = Math.min(100, Math.floor((canvas.width * canvas.height) / 10000));
+            
+            for (let i = 0; i < particleCount; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 3 + 1,
+                    speedX: Math.random() * 1 - 0.5,
+                    speedY: Math.random() * 1 - 0.5,
+                    color: `rgba(${Math.random() > 0.5 ? '179, 142, 93' : '168, 107, 107'}, ${Math.random() * 0.3 + 0.2})`
+                });
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            particles.forEach(particle => {
+                particle.x += particle.speedX;
+                particle.y += particle.speedY;
+                
+                if (particle.x > canvas.width || particle.x < 0) particle.speedX = -particle.speedX;
+                if (particle.y > canvas.height || particle.y < 0) particle.speedY = -particle.speedY;
+                
+                ctx.beginPath();
+                ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+                ctx.fillStyle = particle.color;
+                ctx.fill();
+                
+                particles.forEach(otherParticle => {
+                    const dx = particle.x - otherParticle.x;
+                    const dy = particle.y - otherParticle.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < 100) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(179, 142, 93, ${0.1 * (1 - distance/100)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particle.x, particle.y);
+                        ctx.lineTo(otherParticle.x, otherParticle.y);
+                        ctx.stroke();
+                    }
+                });
+                
+                if (mouse.x !== null && mouse.y !== null) {
+                    const dx = mouse.x - particle.x;
+                    const dy = mouse.y - particle.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < mouse.radius) {
+                        const force = (mouse.radius - distance) / mouse.radius;
+                        const forceX = dx / distance * force * 10;
+                        const forceY = dy / distance * force * 10;
+                        
+                        particle.x -= forceX;
+                        particle.y -= forceY;
+                    }
+                }
+            });
+            
+            requestAnimationFrame(animateParticles);
+        }
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.x;
+            mouse.y = e.y;
+        });
+
+        window.addEventListener('mouseout', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+        animateParticles();
+
+        function createFloatingParticles() {
+            const particleCount = 20;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'floating-particle';
+                
+                const size = Math.random() * 3 + 1;
+                const startX = Math.random() * 100;
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 5;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${startX}vw`;
+                particle.style.bottom = '0';
+                particle.style.opacity = Math.random() * 0.3 + 0.1;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.setProperty('--dx', (Math.random() * 2 - 1).toFixed(2));
+                
+                const colors = [
+                    'rgba(179, 142, 93, 0.3)',
+                    'rgba(168, 107, 107, 0.3)',
+                    'rgba(111, 66, 193, 0.2)',
+                    'rgba(40, 167, 69, 0.2)'
+                ];
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                document.body.appendChild(particle);
+                
+                setTimeout(() => {
+                    particle.remove();
+                }, (duration + delay) * 1000);
+            }
+            
+            setTimeout(createFloatingParticles, 2000);
+        }
+
+        createFloatingParticles();
+
+        function handleScrollAnimations() {
+            const elements = document.querySelectorAll('.slide-in');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('slide-in');
+                }
+            });
+        }
+
+        document.querySelectorAll('.plan, .perk-card, .feature-card, .executer-card, .changelog-item').forEach(el => {
+            el.classList.add('slide-in');
+        });
+
+        window.addEventListener('scroll', handleScrollAnimations);
+        handleScrollAnimations();
+
+        setTimeout(() => {
+            document.querySelectorAll('.purchase-info, .discord-button, .support-server-button, .support-button, .main-server-button').forEach(el => {
+                el.classList.add('pulse-animation');
+            });
+        }, 1000);
+
+        let technicalIssues = true;
         let UpdateStatus = {
             "Volcano": "Updated",
             "Velocity": "Not Updated", 
@@ -1575,7 +1953,7 @@
             "Seliware": "Undetected",
             "Swift": "Detected",
             "Valex": "Detected",
-            "Potassium": "Detected",
+            "Potassium": "Undetected",
             "Bunni.lol": "Unknown",
             "Sirhurt": "Undetected",
             "Hydrogen": "Undetected",
@@ -1588,22 +1966,6 @@
             "ChocoSploit": "Undetected"
         };
 
-        // ==================== TECHNICAL ISSUES VARIABLE ====================
-        let technicalIssues = true;
-
-        function checkTechnicalIssues() {
-            if (technicalIssues) {
-                document.querySelector('.technical-issues').classList.add('active');
-                document.querySelector('.main-content').classList.add('hidden');
-            } else {
-                document.querySelector('.technical-issues').classList.remove('active');
-                document.querySelector('.main-content').classList.remove('hidden');
-            }
-        }
-
-        checkTechnicalIssues();
-
-        // ==================== SCRIPT DATA ====================
         const scriptData = {
             "Universal Gui": {
                 code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Rx1m/CpsHub/refs/heads/main/CPSNetwork",true))()',
