@@ -1969,15 +1969,14 @@
             if (injectorData.free === false) {
                 priceElement.textContent = injectorData.cost || "Paid";
                 priceElement.style.color = "#b38e5d";
-            } 
+            }
             else {
-                if (injectorData.keysystem === true) {
-                    priceElement.textContent = "Free (Key System)";
-                    priceElement.style.color = "#b38e5d";
-                } else {
-                    priceElement.textContent = "Free";
-                    priceElement.style.color = "#4caf50";
-                }
+                priceElement.textContent =
+                    injectorData.keysystem === true
+                        ? "Free (Key System)"
+                        : "Free";
+
+                priceElement.style.color = "#4caf50";
             }
         } else {
             priceElement.textContent = "Loading...";
@@ -1995,6 +1994,7 @@
 
     updateStatusDisplay(injectorName);
 }
+
 
     function setDefaultStatuses() {
         allowedInjectors.forEach(injectorName => {
@@ -2425,6 +2425,14 @@
         const updateStatus = UpdateStatus[executerName] || "Unknown";
         const detectStatus = DetectStatus[executerName] || "Unknown";
 
+        const priceText =
+            injectorData.free === false
+                ? (injectorData.cost || "Paid")
+                : (injectorData.keysystem === true ? "Free (Key System)" : "Free");
+
+        const priceColor =
+            injectorData.free === false ? "#b38e5d" : "#4caf50";
+
         if (!injectorData) {
             modalContent.innerHTML = `
                 <div style="text-align: center; padding: 40px;">
@@ -2475,13 +2483,9 @@
                         <div class="detail-row">
                         <div class="detail-label">Price:</div>
                         <div class="detail-value">
-    ${
-        injectorData.free === false
-        ? (injectorData.cost || "Paid")
-        : (injectorData.keysystem === true ? "Free (Key System)" : "Free")
-    }
-    </div>
-    </div>
+                            <span style="color: ${priceColor};">${priceText}</span>
+                        </div>
+                        </div>
                         <div class="detail-row">
                             <div class="detail-label">Platform:</div>
                             <div class="detail-value">${injectorData.platform || "Not available"}</div>
