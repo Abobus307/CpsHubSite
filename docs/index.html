@@ -1960,25 +1960,31 @@
 
     function updateInjectorCard(injectorName) {
     const injectorData = exploitsFullData[injectorName];
-    
+
     const priceElement = document.getElementById(`price-${injectorName}`);
     const websiteElement = document.getElementById(`website-${injectorName}`);
-    
+
     if (priceElement) {
         if (injectorData) {
-            if (injectorData.keysystem === true) {
-                priceElement.textContent = 'Free (Key System)';
-                priceElement.style.color = '#b38e5d';
-            } else {
-                priceElement.textContent = 'Free';
-                priceElement.style.color = '#4caf50';
+            if (injectorData.free === false) {
+                priceElement.textContent = injectorData.cost || "Paid";
+                priceElement.style.color = "#b38e5d";
+            } 
+            else {
+                if (injectorData.keysystem === true) {
+                    priceElement.textContent = "Free (Key System)";
+                    priceElement.style.color = "#b38e5d";
+                } else {
+                    priceElement.textContent = "Free";
+                    priceElement.style.color = "#4caf50";
+                }
             }
         } else {
-            priceElement.textContent = 'Free';
-            priceElement.style.color = '#4caf50';
+            priceElement.textContent = "Loading...";
+            priceElement.style.color = "";
         }
     }
-    
+
     if (websiteElement) {
         if (injectorData && injectorData.websitelink) {
             websiteElement.textContent = injectorData.websitelink.replace("https://", "");
@@ -1986,7 +1992,7 @@
             websiteElement.textContent = "Website not available";
         }
     }
-    
+
     updateStatusDisplay(injectorName);
 }
 
@@ -2468,10 +2474,14 @@
                         </div>
                         <div class="detail-row">
                         <div class="detail-label">Price:</div>
-    <div class="detail-value">
-    ${injectorData.keysystem === true ? 'Free (Key System)' : 'Free'}
-        </div>
-        </div>
+                        <div class="detail-value">
+    ${
+        injectorData.free === false
+        ? (injectorData.cost || "Paid")
+        : (injectorData.keysystem === true ? "Free (Key System)" : "Free")
+    }
+    </div>
+    </div>
                         <div class="detail-row">
                             <div class="detail-label">Platform:</div>
                             <div class="detail-value">${injectorData.platform || "Not available"}</div>
